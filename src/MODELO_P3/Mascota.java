@@ -1,15 +1,18 @@
 package MODELO_P3;
 
 public interface Mascota {
-	
-	// Prototipos
-	public int getCodigo();
-	public String getNombre();
-	
-	public void setNombre(String nombre);
-	public String getTipo();
-	public boolean[] getHobbies();
-	public String getHobbiesData();
-	public boolean[] getGenero();
-	public String revisionSexo();
+
+    int getCodigo();
+    String getNombre();
+    void setNombre(String nombre);
+    String getTipo();
+    boolean[] getHobbies();
+    String getHobbiesData();
+    boolean[] getGenero();
+    String revisionSexo();
+    int getEdad();
+    void setEdad(int edad);
 }
+
+
+
