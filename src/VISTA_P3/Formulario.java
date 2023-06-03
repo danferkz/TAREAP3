@@ -165,7 +165,7 @@ public class Formulario extends JFrame {
 
 				switch(tipo) {
 				case 1:
-					lista.put(codigo, new Perro(codigo, nombre, new boolean[] {x, y, z}));
+					lista.put(codigo, new Perro(codigo, nombre, ,new boolean[] {x, y, z}));
 					limpiar();
 					break;
 				case 2:

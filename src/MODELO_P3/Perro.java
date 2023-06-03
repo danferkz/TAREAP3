@@ -6,13 +6,16 @@ public class Perro implements Mascota {
 	private String nombre;
 	private String tipo;
 	private boolean[] hobbies;
+	private String genero; 
 	
-	public Perro(int codigo, String nombre, boolean[] hobbies) {
+	public Perro(int codigo, String nombre, String genero ,boolean[] hobbies) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.tipo = "Perro";
 		this.hobbies = hobbies;
+		this.genero = genero;
 	}
+
 
 	@Override
 	public int getCodigo() {
@@ -39,6 +42,10 @@ public class Perro implements Mascota {
 		return hobbies;
 	}
 
+	public String getGenero() {
+		return genero;
+	}
+	
 	@Override
 	public String getHobbiesData() {
 		String texto = "";
