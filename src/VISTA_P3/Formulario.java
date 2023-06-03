@@ -325,6 +325,7 @@ public class Formulario extends JFrame {
 		chckbxHiperactivo.setSelected(false);
 		table.clearSelection();
 		txtCodigo.requestFocus();
+		cmbTipo.setSelectedIndex(0);
 	}
 	
 	Mascota buscar (int codigo) {
