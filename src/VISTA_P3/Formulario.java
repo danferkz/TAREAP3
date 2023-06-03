@@ -61,7 +61,13 @@ public class Formulario extends JFrame {
 	private JRadioButton rdbtnGENE_M;
 	private JRadioButton rdbtnGene_F;
 	private JTextField txtEdad;
-
+	private JLabel lblGM;
+	private JLabel lblGF;
+	private JLabel lblPromEdad;
+	private JLabel lblNumGat;
+	private JLabel lblNumDog;
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -194,6 +200,11 @@ public class Formulario extends JFrame {
 		                break;
 		        }
 		        cargar();
+		        numeroM();
+		        numeroF();
+		        numeroGatos();
+		        numeroPerros();
+		        promEdades();
 		    }
 		});
 		btnAgregar.setBounds(47, 336, 89, 23);
@@ -215,14 +226,7 @@ public class Formulario extends JFrame {
 		JButton btnLimpiar = new JButton("Limpiar");
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtCodigo.setText("");
-				txtNombre.setText("");
-				cmbTipo.setSelectedItem(0);
-				rdbtnGENE_M.setSelected(false);
-				rdbtnGene_F.setSelected(false);
-				chckbxComidaSelectiva.setSelected(false);
-				chckbxPaseosFamiliares.setSelected(false);
-				chckbxHiperactivo.setSelected(false);
+				limpiar();
 			}
 		});
 
@@ -244,29 +248,25 @@ public class Formulario extends JFrame {
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setBounds(330, 336, 89, 23);
 		contentPane.add(btnModificar);
-
-
-		
 		
 		JLabel lbl_edad_P = new JLabel("Promedio de Edad:");
-		lbl_edad_P.setBounds(584, 89, 144, 14);
+		lbl_edad_P.setBounds(584, 89, 112, 14);
 		contentPane.add(lbl_edad_P);
 		
 		JLabel lblgeneroM = new JLabel("Genero Masculino:");
-		lblgeneroM.setBounds(584, 55, 144, 14);
+		lblgeneroM.setBounds(584, 55, 112, 14);
 		contentPane.add(lblgeneroM);
 		
 		JLabel lblgenero_F = new JLabel("Genero Femenino:");
-		lblgenero_F.setBounds(584, 18, 144, 14);
+		lblgenero_F.setBounds(584, 18, 103, 14);
 		contentPane.add(lblgenero_F);
-		
 
 		JLabel lblgato = new JLabel("Gatos:");
-		lblgato.setBounds(584, 127, 86, 14);
+		lblgato.setBounds(584, 127, 48, 14);
 		contentPane.add(lblgato);
 		
 		JLabel lblperros = new JLabel("Perros:");
-		lblperros.setBounds(584, 157, 86, 14);
+		lblperros.setBounds(584, 157, 55, 14);
 		contentPane.add(lblperros);
 		
 		JButton btnEliminar = new JButton("Eliminar");
@@ -281,6 +281,11 @@ public class Formulario extends JFrame {
 		                    lista.remove(codigo);
 		                    limpiar();
 		                    cargar();
+		                    numeroM();
+		                    numeroF();
+		                    numeroGatos();
+		                    numeroPerros();
+		                    promEdades();
 		                    JOptionPane.showMessageDialog(null, mascota.getNombre() + " ha sido eliminado");
 		                }
 		            } else {
@@ -303,12 +308,37 @@ public class Formulario extends JFrame {
 		lblNewLabel_3.setBounds(10, 89, 86, 14);
 		contentPane.add(lblNewLabel_3);
 		
+		lblGF = new JLabel("0");
+		lblGF.setBounds(693, 18, 46, 14);
+		contentPane.add(lblGF);
+		
+		lblGM = new JLabel("0");
+		lblGM.setBounds(693, 55, 46, 14);
+		contentPane.add(lblGM);
+		
+		lblPromEdad = new JLabel("0");
+		lblPromEdad.setBounds(693, 89, 46, 14);
+		contentPane.add(lblPromEdad);
+		
+		lblNumGat = new JLabel("0");
+		lblNumGat.setBounds(624, 127, 46, 14);
+		contentPane.add(lblNumGat);
+		
+		lblNumDog = new JLabel("0");
+		lblNumDog.setBounds(634, 157, 46, 14);
+		contentPane.add(lblNumDog);
+		
 		lista.put(101, new Perro(101, "Firulais", new boolean[] {true, false}, new boolean[] {true, true, false}, 5));
 		lista.put(102, new Gato(102, "Michelina", new boolean[] {false, true},new boolean[] {false, false, true}, 9));
 		lista.put(103, new Perro(103, "Lazzy Lin", new boolean[] {false, true},new boolean[] {false, true, true}, 3));
 		lista.put(104, new Gato(104, "Garfield", new boolean[] {true, false}  ,new boolean[] {true, true, false}, 7));
 		
 		cargar();
+		numeroM();
+		numeroF();
+		numeroGatos();
+		numeroPerros();
+		promEdades();
 	}
 	void cargar() {
 	    DefaultTableModel model = new DefaultTableModel(
@@ -360,11 +390,9 @@ public class Formulario extends JFrame {
 	            });
 	        }
 	    }
-	    
 	    table.setModel(model);
 	}
 	void limpiar() {
-<<<<<<< HEAD
 		txtCodigo.setText("");
 		txtNombre.setText("");
 		cmbTipo.setSelectedIndex(0);
@@ -374,7 +402,6 @@ public class Formulario extends JFrame {
 		table.clearSelection();
 		txtCodigo.requestFocus();
 		cmbTipo.setSelectedIndex(0);
-=======
 	    txtCodigo.setText("");
 	    txtNombre.setText("");
 	    cmbTipo.setSelectedIndex(0);
@@ -386,8 +413,8 @@ public class Formulario extends JFrame {
 	    table.clearSelection();
 	    txtCodigo.requestFocus();
 	    txtEdad.setText("");
->>>>>>> 9f887fb6524536fa185a79cab3136a5f3a3b9bb3
-	}
+	    }
+	
 	Mascota buscar (int codigo) {
 		Enumeration<Mascota> e = lista.elements();
 		while (e.hasMoreElements()) {
@@ -398,4 +425,70 @@ public class Formulario extends JFrame {
 		}
 		return null;
 	}
+	
+	void numeroM() {
+		Enumeration<Mascota> e = lista.elements();
+		int nummacho = 0;
+		while (e.hasMoreElements()) {
+			Mascota m1 = e.nextElement();
+			if (m1.getGenero()[0]==true) {
+				nummacho = nummacho +1;
+			}
+		}
+		String numM = String.valueOf(nummacho);
+		lblGM.setText(numM);
+		}
+	
+	void numeroF() {
+		Enumeration<Mascota> e = lista.elements();
+		int numf = 0;
+		while (e.hasMoreElements()) {
+			Mascota m1 = e.nextElement();
+			if (m1.getGenero()[1]==true) {
+				numf = numf +1;
+			}
+		}
+		String numF = String.valueOf(numf);
+		lblGF.setText(numF);
+		}
+	
+	void numeroGatos() {
+		Enumeration<Mascota> e = lista.elements();
+		int numcat = 0;
+		while (e.hasMoreElements()) {
+			Mascota m1 = e.nextElement();
+			if (m1.getTipo().equals("Gato")) {
+				numcat = numcat +1;
+			}
+		}
+		String numGAT = String.valueOf(numcat);
+		lblNumGat.setText(numGAT);
+		}
+	
+	void numeroPerros() {
+		Enumeration<Mascota> e = lista.elements();
+		int numcat = 0;
+		while (e.hasMoreElements()) {
+			Mascota m1 = e.nextElement();
+			if (m1.getTipo().equals("Perro")) {
+				numcat = numcat +1;
+			}
+		}
+		String numGAT = String.valueOf(numcat);
+		lblNumDog.setText(numGAT);
+		}
+	
+	void promEdades() {
+		Enumeration<Mascota> e = lista.elements();
+		int numedad = 0;
+		while (e.hasMoreElements()) {
+			Mascota m1 = e.nextElement();
+			numedad = numedad + m1.getEdad();
+		}
+		int prom = numedad / (lista.size());
+		String numGAT = String.valueOf(prom);
+		lblPromEdad.setText(numGAT);
+		}
+	
+	
 }
