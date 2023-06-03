@@ -132,6 +132,7 @@ public class Formulario extends JFrame {
 					else if (m11.getGenero()[1]==false) {
 						rdbtnGene_F.setSelected(false); 
 					}
+					txtEdad.setText(String.valueOf(m11.getEdad()));
 				}
 			}
 		});
