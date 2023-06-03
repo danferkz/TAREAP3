@@ -162,14 +162,16 @@ public class Formulario extends JFrame {
 				boolean x = chckbxComidaSelectiva.isSelected();
 				boolean y = chckbxPaseosFamiliares.isSelected();
 				boolean z = chckbxHiperactivo.isSelected();
-
+				boolean male = ;
+				String gen;
+				
 				switch(tipo) {
 				case 1:
-					lista.put(codigo, new Perro(codigo, nombre, new boolean[] {x, y, z}));
+					lista.put(codigo, new Perro(codigo, nombre, gen ,new boolean[] {x, y, z}));
 					limpiar();
 					break;
 				case 2:
-					lista.put(codigo, new Gato(codigo, nombre, new boolean[] {x, y, z}));
+					lista.put(codigo, new Gato(codigo, nombre, gen ,new boolean[] {x, y, z}));
 					limpiar();
 					break;
 				}
@@ -198,6 +200,11 @@ public class Formulario extends JFrame {
 				txtCodigo.setText("");
 				txtNombre.setText("");
 				cmbTipo.setSelectedItem(0);
+				rdbtnGENE_M.setSelected(false);
+				rdbtnGene_F.setSelected(false);
+				chckbxComidaSelectiva.setSelected(false);
+				chckbxPaseosFamiliares.setSelected(false);
+				chckbxHiperactivo.setSelected(false);
 			}
 		});
 
