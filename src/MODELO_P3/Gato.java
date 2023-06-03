@@ -1,5 +1,6 @@
 package MODELO_P3;
 
+
 public class Gato implements Mascota {
 	
 	private int codigo;
