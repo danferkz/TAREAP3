@@ -1,5 +1,6 @@
 package VISTA_P3;
 
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -25,6 +26,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JRadioButton;
+
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JRadioButton;
+
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JRadioButton;
+
+
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JRadioButton;
+
 
 public class Formulario extends JFrame {
 
@@ -223,8 +241,6 @@ public class Formulario extends JFrame {
 		contentPane.add(btnModificar);
 
 
-		
-		
 		
 		
 		JLabel lbl_edad_P = new JLabel("Promedio de Edad:");
