@@ -7,9 +7,9 @@ public class Gato implements Mascota {
 	private String nombre;
 	private String tipo;
 	private boolean[] hobbies;
-	private String genero; 
+	private boolean[] genero; 
 	
-	public Gato(int codigo, String nombre, String genero ,boolean[] hobbies) {
+	public Gato(int codigo, String nombre, boolean[] genero ,boolean[] hobbies) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.tipo = "Gato";
@@ -44,7 +44,7 @@ public class Gato implements Mascota {
 		return hobbies;
 	}
 
-	public String getGenero() {
+	public boolean[] getGenero() {
 		return genero;
 	}
 
@@ -60,5 +60,17 @@ public class Gato implements Mascota {
 			}
 		}
 		return texto;
+	}
+
+	@Override
+	public String revisionSexo() {
+		String sexo = "";	
+		if (genero[0]==true) {
+				sexo = "M";
+			}
+			else if (genero[1]==true) {
+				sexo = "F";
+			}
+		return sexo;
 	}
 }

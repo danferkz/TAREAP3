@@ -10,4 +10,6 @@ public interface Mascota {
 	public String getTipo();
 	public boolean[] getHobbies();
 	public String getHobbiesData();
+	public boolean[] getGenero();
+	public String revisionSexo();
 }
