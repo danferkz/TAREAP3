@@ -192,11 +192,11 @@ public class Formulario extends JFrame {
 		        switch(tipo) {
 		            case 1:
 		                lista.put(codigo, new Perro(codigo, nombre, new boolean[] {male, female}, new boolean[] {x, y, z}, edad));
-		                limpiar();
+		                clear();
 		                break;
 		            case 2:
 		                lista.put(codigo, new Gato(codigo, nombre, new boolean[] {male, female}, new boolean[] {x, y, z}, edad));
-		                limpiar();
+		                clear();
 		                break;
 		        }
 		        cargar();
@@ -223,10 +223,10 @@ public class Formulario extends JFrame {
 		contentPane.add(chckbxHiperactivo);
 
 
-		JButton btnLimpiar = new JButton("Limpiar");
+		JButton btnLimpiar = new JButton("Clear");
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limpiar();
+				clear();
 			}
 		});
 
@@ -279,7 +279,7 @@ public class Formulario extends JFrame {
 		                int confirmar = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Eliminar", JOptionPane.YES_NO_OPTION);
 		                if (confirmar == JOptionPane.YES_OPTION) {
 		                    lista.remove(codigo);
-		                    limpiar();
+		                    clear();
 		                    cargar();
 		                    numeroM();
 		                    numeroF();
@@ -327,6 +327,21 @@ public class Formulario extends JFrame {
 		lblNumDog = new JLabel("0");
 		lblNumDog.setBounds(634, 157, 46, 14);
 		contentPane.add(lblNumDog);
+		
+		JButton btnPurge = new JButton("Limpiar");
+		btnPurge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				purge();
+				cargar();
+				numeroM();
+				numeroF();
+				numeroGatos();
+				numeroPerros();
+				promEdades();
+			}
+		});
+		btnPurge.setBounds(624, 336, 89, 23);
+		contentPane.add(btnPurge);
 		
 		lista.put(101, new Perro(101, "Firulais", new boolean[] {true, false}, new boolean[] {true, true, false}, 5));
 		lista.put(102, new Gato(102, "Michelina", new boolean[] {false, true},new boolean[] {false, false, true}, 9));
@@ -392,7 +407,7 @@ public class Formulario extends JFrame {
 	    }
 	    table.setModel(model);
 	}
-	void limpiar() {
+	void clear() {
 		txtCodigo.setText("");
 		txtNombre.setText("");
 		cmbTipo.setSelectedIndex(0);
@@ -489,6 +504,14 @@ public class Formulario extends JFrame {
 		String numGAT = String.valueOf(prom);
 		lblPromEdad.setText(numGAT);
 		}
+	
+	void purge() {
+		Enumeration<Mascota> e = lista.elements();
+		while (e.hasMoreElements()) {
+			int direct = 100 + lista.size();
+			lista.remove(direct);
+		}
+	}
 	
 	
 }
