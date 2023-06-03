@@ -116,6 +116,19 @@ public class Formulario extends JFrame {
 					else if(m11.getHobbies()[2]==false) {
 						chckbxHiperactivo.setSelected(false);
 					}
+					if (m11.getGenero()[0]==true) {
+						rdbtnGENE_M.setSelected(true);
+					}
+					else if (m11.getGenero()[0]==false) {
+						rdbtnGENE_M.setSelected(false);
+					}
+					
+					if (m11.getGenero()[1]==true) {
+						rdbtnGene_F.setSelected(true); 
+					}
+					else if (m11.getGenero()[1]==false) {
+						rdbtnGene_F.setSelected(false); 
+					}
 				}
 			}
 		});
@@ -162,16 +175,16 @@ public class Formulario extends JFrame {
 				boolean x = chckbxComidaSelectiva.isSelected();
 				boolean y = chckbxPaseosFamiliares.isSelected();
 				boolean z = chckbxHiperactivo.isSelected();
-				boolean male = ;
-				String gen;
+				boolean male = rdbtnGENE_M.isSelected();
+				boolean female = rdbtnGene_F.isSelected();
 				
 				switch(tipo) {
 				case 1:
-					lista.put(codigo, new Perro(codigo, nombre, gen ,new boolean[] {x, y, z}));
+					lista.put(codigo, new Perro(codigo, nombre, new boolean[] {male, female} ,new boolean[] {x, y, z}));
 					limpiar();
 					break;
 				case 2:
-					lista.put(codigo, new Gato(codigo, nombre, gen ,new boolean[] {x, y, z}));
+					lista.put(codigo, new Gato(codigo, nombre,new boolean[] {male, female} ,new boolean[] {x, y, z}));
 					limpiar();
 					break;
 				}
@@ -257,19 +270,20 @@ public class Formulario extends JFrame {
 		contentPane.add(btneliminar);
 
 		
-		lista.put(101, new Perro(101, "Firulais", new boolean[] {true, true, false}));
-		lista.put(102, new Gato(102, "Michelina", new boolean[] {false, false, true}));
-		lista.put(103, new Perro(103, "Lazzy Lin", new boolean[] {false, true, true}));
-		lista.put(104, new Gato(104, "Garfield", new boolean[] {true, true, false}));
+		lista.put(101, new Perro(101, "Firulais", new boolean[] {true, false},new boolean[] {true, true, false}));
+		lista.put(102, new Gato(102, "Michelina", new boolean[] {false, true},new boolean[] {false, false, true}));
+		lista.put(103, new Perro(103, "Lazzy Lin", new boolean[] {false, true},new boolean[] {false, true, true}));
+		lista.put(104, new Gato(104, "Garfield", new boolean[] {true, false}  ,new boolean[] {true, true, false}));
 		
 		cargar();
 	}
 	void cargar() {
 		DefaultTableModel model = new DefaultTableModel(
-			new String[] {"Codigo", "Nombre", "Tipo", "A", "B", "C"}, 0){
+			new String[] {"Codigo", "Nombre", "Tipo","Sexo", "A", "B", "C"}, 0){
 			private static final long serialVersionUID = 1L;
 			Class<?>[] columnTypes = new Class[] {
 					Integer.class,
+					String.class,
 					String.class,
 					String.class,
 					Boolean.class,
@@ -289,6 +303,7 @@ public class Formulario extends JFrame {
 						m.getCodigo(),
 						m.getNombre(),
 						m.getTipo(),
+						m.revisionSexo(),
 						m.getHobbies()[0],
 						m.getHobbies()[1],
 						m.getHobbies()[2]
