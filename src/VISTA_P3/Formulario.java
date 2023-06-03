@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import MODELO_P3.*;
+import MODELO_P3.*; 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
