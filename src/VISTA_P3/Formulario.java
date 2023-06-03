@@ -198,6 +198,11 @@ public class Formulario extends JFrame {
 				txtCodigo.setText("");
 				txtNombre.setText("");
 				cmbTipo.setSelectedItem(0);
+				rdbtnGENE_M.setSelected(false);
+				rdbtnGene_F.setSelected(false);
+				chckbxComidaSelectiva.setSelected(false);
+				chckbxPaseosFamiliares.setSelected(false);
+				chckbxHiperactivo.setSelected(false);
 			}
 		});
 
