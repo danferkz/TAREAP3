@@ -15,6 +15,7 @@ import java.util.Hashtable;
 
 import MODELO_P3.*; 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -54,10 +55,12 @@ public class Formulario extends JFrame {
 	private JTextField txtNombre;
 	private JCheckBox chckbxComidaSelectiva;
 	private JCheckBox chckbxPaseosFamiliares;
+	private DefaultTableModel tableModel;
 	private JCheckBox chckbxHiperactivo;
 	private JComboBox<String> cmbTipo;
 	private JRadioButton rdbtnGENE_M;
 	private JRadioButton rdbtnGene_F;
+	private JTextField txtEdad;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -148,7 +151,7 @@ public class Formulario extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Tipo:");
-		lblNewLabel_2.setBounds(10, 89, 72, 14);
+		lblNewLabel_2.setBounds(10, 131, 72, 14);
 		contentPane.add(lblNewLabel_2);
 		
 		txtCodigo = new JTextField();
@@ -163,47 +166,48 @@ public class Formulario extends JFrame {
 		
 		cmbTipo = new JComboBox<String>();
 		cmbTipo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Perro", "Gato"}));
-		cmbTipo.setBounds(92, 89, 86, 22);
+		cmbTipo.setBounds(92, 131, 86, 22);
 		contentPane.add(cmbTipo);
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int codigo = Integer.parseInt(txtCodigo.getText());
-				String nombre = txtNombre.getText();
-				int tipo = cmbTipo.getSelectedIndex();
-				boolean x = chckbxComidaSelectiva.isSelected();
-				boolean y = chckbxPaseosFamiliares.isSelected();
-				boolean z = chckbxHiperactivo.isSelected();
-				boolean male = rdbtnGENE_M.isSelected();
-				boolean female = rdbtnGene_F.isSelected();
-				
-				switch(tipo) {
-				case 1:
-					lista.put(codigo, new Perro(codigo, nombre, new boolean[] {male, female} ,new boolean[] {x, y, z}));
-					limpiar();
-					break;
-				case 2:
-					lista.put(codigo, new Gato(codigo, nombre,new boolean[] {male, female} ,new boolean[] {x, y, z}));
-					limpiar();
-					break;
-				}
-				cargar();
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        int codigo = Integer.parseInt(txtCodigo.getText());
+		        String nombre = txtNombre.getText();
+		        int tipo = cmbTipo.getSelectedIndex();
+		        boolean x = chckbxComidaSelectiva.isSelected();
+		        boolean y = chckbxPaseosFamiliares.isSelected();
+		        boolean z = chckbxHiperactivo.isSelected();
+		        boolean male = rdbtnGENE_M.isSelected();
+		        boolean female = rdbtnGene_F.isSelected();
+		        int edad = Integer.parseInt(txtEdad.getText());
+		        
+		        switch(tipo) {
+		            case 1:
+		                lista.put(codigo, new Perro(codigo, nombre, new boolean[] {male, female}, new boolean[] {x, y, z}, edad));
+		                limpiar();
+		                break;
+		            case 2:
+		                lista.put(codigo, new Gato(codigo, nombre, new boolean[] {male, female}, new boolean[] {x, y, z}, edad));
+		                limpiar();
+		                break;
+		        }
+		        cargar();
+		    }
 		});
 		btnAgregar.setBounds(47, 336, 89, 23);
 		contentPane.add(btnAgregar);
 		
-		chckbxComidaSelectiva = new JCheckBox("Comida Selectiva");
-		chckbxComidaSelectiva.setBounds(47, 303, 134, 23);
+		chckbxComidaSelectiva = new JCheckBox("Comida Selectiva (A)");
+		chckbxComidaSelectiva.setBounds(47, 231, 178, 23);
 		contentPane.add(chckbxComidaSelectiva);
 		
-		chckbxPaseosFamiliares = new JCheckBox("Paseos Familiares");
-		chckbxPaseosFamiliares.setBounds(44, 251, 134, 23);
+		chckbxPaseosFamiliares = new JCheckBox("Paseos Familiares (B)");
+		chckbxPaseosFamiliares.setBounds(47, 259, 168, 23);
 		contentPane.add(chckbxPaseosFamiliares);
 		
-		chckbxHiperactivo = new JCheckBox("Hiperactivo");
-		chckbxHiperactivo.setBounds(47, 277, 97, 23);
+		chckbxHiperactivo = new JCheckBox("Hiperactivo (C)");
+		chckbxHiperactivo.setBounds(47, 285, 154, 23);
 		contentPane.add(chckbxHiperactivo);
 
 
@@ -225,15 +229,15 @@ public class Formulario extends JFrame {
 		contentPane.add(btnLimpiar);
 
 		rdbtnGENE_M = new JRadioButton("M");
-		rdbtnGENE_M.setBounds(55, 148, 55, 23);
+		rdbtnGENE_M.setBounds(55, 190, 55, 23);
 		contentPane.add(rdbtnGENE_M);
 		
 		rdbtnGene_F = new JRadioButton("F");
-		rdbtnGene_F.setBounds(130, 148, 48, 23);
+		rdbtnGene_F.setBounds(130, 190, 48, 23);
 		contentPane.add(rdbtnGene_F);
 		
 		JLabel lblIndiGene = new JLabel("Genero");
-		lblIndiGene.setBounds(10, 127, 46, 14);
+		lblIndiGene.setBounds(10, 169, 46, 14);
 		contentPane.add(lblIndiGene);
 		
 		JButton btnModificar = new JButton("Modificar");
@@ -244,87 +248,133 @@ public class Formulario extends JFrame {
 		
 		
 		JLabel lbl_edad_P = new JLabel("Promedio de Edad:");
-		lbl_edad_P.setBounds(204, 281, 111, 14);
+		lbl_edad_P.setBounds(584, 89, 144, 14);
 		contentPane.add(lbl_edad_P);
 		
 		JLabel lblgeneroM = new JLabel("Genero Masculino:");
-		lblgeneroM.setBounds(204, 240, 89, 14);
+		lblgeneroM.setBounds(584, 55, 144, 14);
 		contentPane.add(lblgeneroM);
 		
 		JLabel lblgenero_F = new JLabel("Genero Femenino:");
-		lblgenero_F.setBounds(342, 240, 97, 14);
+		lblgenero_F.setBounds(584, 18, 144, 14);
 		contentPane.add(lblgenero_F);
 		
 
 		JLabel lblgato = new JLabel("Gatos:");
-		lblgato.setBounds(342, 281, 46, 14);
+		lblgato.setBounds(584, 127, 86, 14);
 		contentPane.add(lblgato);
 		
 		JLabel lblperros = new JLabel("Perros:");
-		lblperros.setBounds(455, 281, 46, 14);
+		lblperros.setBounds(584, 157, 86, 14);
 		contentPane.add(lblperros);
 		
-		JButton btneliminar = new JButton("Eliminar");
-		btneliminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (!txtCodigo.getText().isEmpty()) {
+		            int codigo = Integer.parseInt(txtCodigo.getText());
+		            Mascota mascota = buscar(codigo);
+		            if (mascota != null) {
+		                int confirmar = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Eliminar", JOptionPane.YES_NO_OPTION);
+		                if (confirmar == JOptionPane.YES_OPTION) {
+		                    lista.remove(codigo);
+		                    limpiar();
+		                    cargar();
+		                    JOptionPane.showMessageDialog(null, mascota.getNombre() + " ha sido eliminado");
+		                }
+		            } else {
+		                JOptionPane.showMessageDialog(null, "El código " + codigo + " no existe");
+		            }
+		        } else {
+		            txtCodigo.requestFocus();
+		        }
+		    }
 		});
-		btneliminar.setBounds(172, 336, 89, 23);
-		contentPane.add(btneliminar);
-
+		btnEliminar.setBounds(172, 336, 89, 23);
+		contentPane.add(btnEliminar);
 		
-		lista.put(101, new Perro(101, "Firulais", new boolean[] {true, false},new boolean[] {true, true, false}));
-		lista.put(102, new Gato(102, "Michelina", new boolean[] {false, true},new boolean[] {false, false, true}));
-		lista.put(103, new Perro(103, "Lazzy Lin", new boolean[] {false, true},new boolean[] {false, true, true}));
-		lista.put(104, new Gato(104, "Garfield", new boolean[] {true, false}  ,new boolean[] {true, true, false}));
+		txtEdad = new JTextField();
+		txtEdad.setBounds(92, 86, 86, 20);
+		contentPane.add(txtEdad);
+		txtEdad.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("Edad:");
+		lblNewLabel_3.setBounds(10, 89, 86, 14);
+		contentPane.add(lblNewLabel_3);
+		
+		lista.put(101, new Perro(101, "Firulais", new boolean[] {true, false}, new boolean[] {true, true, false}, 5));
+		lista.put(102, new Gato(102, "Michelina", new boolean[] {false, true},new boolean[] {false, false, true}, 9));
+		lista.put(103, new Perro(103, "Lazzy Lin", new boolean[] {false, true},new boolean[] {false, true, true}, 3));
+		lista.put(104, new Gato(104, "Garfield", new boolean[] {true, false}  ,new boolean[] {true, true, false}, 7));
 		
 		cargar();
 	}
 	void cargar() {
-		DefaultTableModel model = new DefaultTableModel(
-			new String[] {"Codigo", "Nombre", "Tipo","Sexo", "A", "B", "C"}, 0){
-			private static final long serialVersionUID = 1L;
-			Class<?>[] columnTypes = new Class[] {
-					Integer.class,
-					String.class,
-					String.class,
-					String.class,
-					Boolean.class,
-					Boolean.class,
-					Boolean.class
-				};
-				public Class<?> getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-			};
+	    DefaultTableModel model = new DefaultTableModel(
+	        new String[] {"Codigo", "Nombre", "Tipo", "Sexo", "Edad", "A", "B", "C"}, 0) {
+	        private static final long serialVersionUID = 1L;
+	        Class<?>[] columnTypes = new Class[] {
+	            Integer.class,
+	            String.class,
+	            String.class,
+	            String.class,
+	            Integer.class,
+	            Boolean.class,
+	            Boolean.class,
+	            Boolean.class
+	        };
+	        
+	        public Class<?> getColumnClass(int columnIndex) {
+	            return columnTypes[columnIndex];
+	        }
+	    };
 
-		Enumeration<Mascota> e = lista.elements();
+	    Enumeration<Mascota> e = lista.elements();
 
-		while(e.hasMoreElements()) {
-			Mascota m = e.nextElement();
-			model.addRow(new Object[] {
-						m.getCodigo(),
-						m.getNombre(),
-						m.getTipo(),
-						m.revisionSexo(),
-						m.getHobbies()[0],
-						m.getHobbies()[1],
-						m.getHobbies()[2]
-					});
-		}
-		table.setModel(model);
+	    while(e.hasMoreElements()) {
+	        Mascota m = e.nextElement();
+	        if (m instanceof Perro) {
+	            Perro perro = (Perro) m;
+	            model.addRow(new Object[] {
+	                perro.getCodigo(),
+	                perro.getNombre(),
+	                perro.getTipo(),
+	                perro.revisionSexo(),
+	                perro.getEdad(),
+	                perro.getHobbies()[0],
+	                perro.getHobbies()[1],
+	                perro.getHobbies()[2]
+	            });
+	        } else if (m instanceof Gato) {
+	            Gato gato = (Gato) m;
+	            model.addRow(new Object[] {
+	                gato.getCodigo(),
+	                gato.getNombre(),
+	                gato.getTipo(),
+	                gato.revisionSexo(),
+	                gato.getEdad(),
+	                gato.getHobbies()[0],
+	                gato.getHobbies()[1],
+	                gato.getHobbies()[2]
+	            });
+	        }
+	    }
+	    
+	    table.setModel(model);
 	}
 	void limpiar() {
-		txtCodigo.setText("");
-		txtNombre.setText("");
-		cmbTipo.setSelectedIndex(0);
-		chckbxComidaSelectiva.setSelected(false);
-		chckbxPaseosFamiliares.setSelected(false);
-		chckbxHiperactivo.setSelected(false);
-		table.clearSelection();
-		txtCodigo.requestFocus();
+	    txtCodigo.setText("");
+	    txtNombre.setText("");
+	    cmbTipo.setSelectedIndex(0);
+	    chckbxComidaSelectiva.setSelected(false);
+	    chckbxPaseosFamiliares.setSelected(false);
+	    chckbxHiperactivo.setSelected(false);
+	    rdbtnGENE_M.setSelected(false);
+	    rdbtnGene_F.setSelected(false);
+	    table.clearSelection();
+	    txtCodigo.requestFocus();
+	    txtEdad.setText("");
 	}
-	
 	Mascota buscar (int codigo) {
 		Enumeration<Mascota> e = lista.elements();
 		while (e.hasMoreElements()) {
