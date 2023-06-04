@@ -506,12 +506,8 @@ public class Formulario extends JFrame {
 		}
 	
 	void purge() {
-		Enumeration<Mascota> e = lista.elements();
-		while (e.hasMoreElements()) {
-			int direct = 100 + lista.size();
-			lista.remove(direct);
+		lista.clear();
 		}
 	}
 	
 	
-}
