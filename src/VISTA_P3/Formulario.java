@@ -224,17 +224,6 @@ public class Formulario extends JFrame {
 		chckbxHiperactivo.setBounds(47, 285, 154, 23);
 		contentPane.add(chckbxHiperactivo);
 
-
-		JButton btnLimpiar = new JButton("Clear");
-		btnLimpiar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				clear();
-			}
-		});
-
-		btnLimpiar.setBounds(483, 336, 89, 23);
-		contentPane.add(btnLimpiar);
-
 		rdbtnGENE_M = new JRadioButton("M");
 		rdbtnGENE_M.setBounds(55, 190, 55, 23);
 		contentPane.add(rdbtnGENE_M);
@@ -376,7 +365,7 @@ public class Formulario extends JFrame {
 		        promEdades();
 		    }
 		});
-		btnPurge.setBounds(624, 336, 89, 23);
+		btnPurge.setBounds(499, 336, 89, 23);
 		contentPane.add(btnPurge);
 		
 		lista.put(101, new Perro(101, "Firulais", new boolean[] {true, false}, new boolean[] {true, true, false}, 5));
