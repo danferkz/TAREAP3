@@ -532,11 +532,14 @@ public class Formulario extends JFrame {
 	void promEdades() {
 		Enumeration<Mascota> e = lista.elements();
 		int numedad = 0;
-		while (e.hasMoreElements()) {
-			Mascota m1 = e.nextElement();
-			numedad = numedad + m1.getEdad();
+		int prom = 0;
+		if (!(lista.size()==0)) {
+			while (e.hasMoreElements()) {
+				Mascota m1 = e.nextElement();
+				numedad = numedad + m1.getEdad();
+			}
+			prom = numedad / (lista.size());
 		}
-		int prom = numedad / (lista.size());
 		String numGAT = String.valueOf(prom);
 		lblPromEdad.setText(numGAT);
 		}
