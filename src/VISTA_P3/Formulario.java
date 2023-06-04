@@ -367,7 +367,7 @@ public class Formulario extends JFrame {
 		JButton btnPurge = new JButton("Limpiar");
 		btnPurge.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        clear();
+		        purge();
 		        cargar();
 		        numeroM();
 		        numeroF();
