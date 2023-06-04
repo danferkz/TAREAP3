@@ -66,6 +66,7 @@ public class Formulario extends JFrame {
 	private JLabel lblPromEdad;
 	private JLabel lblNumGat;
 	private JLabel lblNumDog;
+	private int codigoActual;
 	
 	
 	public static void main(String[] args) {
@@ -104,6 +105,7 @@ public class Formulario extends JFrame {
 					int valuex = Integer.parseInt(table.getValueAt(fila, 0).toString());
 					Mascota m11 = buscar(valuex);
 					txtCodigo.setText(String.valueOf(m11.getCodigo()));
+					codigoActual = Integer.parseInt(txtCodigo.getText());
 					txtNombre.setText(String.valueOf(m11.getNombre()));
 					String type = m11.getTipo();
 					cmbTipo.setSelectedItem(type);
@@ -246,6 +248,40 @@ public class Formulario extends JFrame {
 		contentPane.add(lblIndiGene);
 		
 		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        int codigo = Integer.parseInt(txtCodigo.getText());
+		        String nombre = txtNombre.getText();
+		        int tipo = cmbTipo.getSelectedIndex();
+		        boolean x = chckbxComidaSelectiva.isSelected();
+		        boolean y = chckbxPaseosFamiliares.isSelected();
+		        boolean z = chckbxHiperactivo.isSelected();
+		        boolean male = rdbtnGENE_M.isSelected();
+		        boolean female = rdbtnGene_F.isSelected();
+		        int edad = Integer.parseInt(txtEdad.getText());
+		        
+		        if (codigo != codigoActual) {
+		            JOptionPane.showMessageDialog(null, "No se puede modificar el código.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+		            return;
+		        }
+
+		        switch (tipo) {
+		            case 1:
+		                lista.put(codigo, new Perro(codigo, nombre, new boolean[]{male, female}, new boolean[]{x, y, z}, edad));
+		                break;
+		            case 2:
+		                lista.put(codigo, new Gato(codigo, nombre, new boolean[]{male, female}, new boolean[]{x, y, z}, edad));
+		                break;
+		        }
+		        clear();
+		        cargar();
+		        numeroM();
+		        numeroF();
+		        numeroGatos();
+		        numeroPerros();
+		        promEdades();
+		    }
+		});
 		btnModificar.setBounds(330, 336, 89, 23);
 		contentPane.add(btnModificar);
 		
@@ -330,15 +366,15 @@ public class Formulario extends JFrame {
 		
 		JButton btnPurge = new JButton("Limpiar");
 		btnPurge.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				purge();
-				cargar();
-				numeroM();
-				numeroF();
-				numeroGatos();
-				numeroPerros();
-				promEdades();
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        clear();
+		        cargar();
+		        numeroM();
+		        numeroF();
+		        numeroGatos();
+		        numeroPerros();
+		        promEdades();
+		    }
 		});
 		btnPurge.setBounds(624, 336, 89, 23);
 		contentPane.add(btnPurge);
