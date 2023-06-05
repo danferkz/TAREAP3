@@ -6,17 +6,17 @@ public class Perro implements Mascota {
 	private String nombre;
 	private String tipo;
 	private boolean[] hobbies;
-	private boolean[] genero; 
+	private boolean[] genero;
+	private int edad;
 	
-	public Perro(int codigo, String nombre, boolean[] genero ,boolean[] hobbies) {
+	public Perro(int codigo, String nombre, boolean[] genero, boolean[] hobbies, int edad) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.tipo = "Perro";
-		this.hobbies = hobbies;
 		this.genero = genero;
+		this.hobbies = hobbies;
+		this.edad = edad;
 	}
-
-
 
 	@Override
 	public int getCodigo() {
@@ -43,10 +43,6 @@ public class Perro implements Mascota {
 		return hobbies;
 	}
 
-	public boolean[] getGenero() {
-		return genero;
-	}
-	
 	@Override
 	public String getHobbiesData() {
 		String texto = "";
@@ -60,16 +56,28 @@ public class Perro implements Mascota {
 		}
 		return texto;
 	}
+
+	@Override
+	public boolean[] getGenero() {
+		return genero;
+	}
 	
+	@Override
 	public String revisionSexo() {
 		String sexo = "";	
-		if (genero[0]==true) {
-				sexo = "M";
-			}
-			else if (genero[1]==true) {
-				sexo = "F";
-			}
+		if (genero[0]) {
+			sexo = "M";
+		} else if (genero[1]) {
+			sexo = "F";
+		}
 		return sexo;
 	}
-}
 	
+	public int getEdad() {
+		return edad;
+	}
+	
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+}

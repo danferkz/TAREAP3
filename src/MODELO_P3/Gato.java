@@ -7,21 +7,22 @@ public class Gato implements Mascota {
 	private String nombre;
 	private String tipo;
 	private boolean[] hobbies;
-	private boolean[] genero; 
+	private boolean[] genero;
+	private int edad;
 	
-	public Gato(int codigo, String nombre, boolean[] genero ,boolean[] hobbies) {
+	public Gato(int codigo, String nombre, boolean[] genero, boolean[] hobbies, int edad) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.tipo = "Gato";
 		this.hobbies = hobbies;
 		this.genero = genero;
+		this.edad = edad;
 	}
-
+	
 	@Override
 	public int getCodigo() {
 		return codigo;
 	}
-	
 
 	@Override
 	public String getNombre() {
@@ -38,7 +39,6 @@ public class Gato implements Mascota {
 		return tipo;
 	}
 
-
 	@Override
 	public boolean[] getHobbies() {
 		return hobbies;
@@ -48,15 +48,29 @@ public class Gato implements Mascota {
 		return genero;
 	}
 
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
 	@Override
 	public String getHobbiesData() {
 		String texto = "";
-		for(int i = 0; i < hobbies.length; i++) {
+		for (int i = 0; i < hobbies.length; i++) {
 			boolean b = hobbies[i];
-			switch(i) {
-				case 0: texto +="\tComida Selectiva" + "\t" + b + "\n"; break;
-				case 1: texto +="\tPaseos Familiares" + "\t" + b + "\n"; break;
-				case 2: texto +="\tEs muy Hiperactivo" + "\t" + b + "\n"; break;
+			switch (i) {
+				case 0:
+					texto += "\tComida Selectiva" + "\t" + b + "\n";
+					break;
+				case 1:
+					texto += "\tPaseos Familiares" + "\t" + b + "\n";
+					break;
+				case 2:
+					texto += "\tEs muy Hiperactivo" + "\t" + b + "\n";
+					break;
 			}
 		}
 		return texto;
@@ -64,13 +78,12 @@ public class Gato implements Mascota {
 
 	@Override
 	public String revisionSexo() {
-		String sexo = "";	
-		if (genero[0]==true) {
-				sexo = "M";
-			}
-			else if (genero[1]==true) {
-				sexo = "F";
-			}
+		String sexo = "";
+		if (genero[0] == true) {
+			sexo = "M";
+		} else if (genero[1] == true) {
+			sexo = "F";
+		}
 		return sexo;
 	}
 }
