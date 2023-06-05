@@ -214,8 +214,8 @@ public class Formulario extends JFrame {
 		rdbtnGene_F.setBounds(130, 148, 48, 23);
 		contentPane.add(rdbtnGene_F);
 		
-		JLabel lblIndiGene = new JLabel("Genero");
-		lblIndiGene.setBounds(10, 127, 46, 14);
+		JLabel lblIndiGene = new JLabel("Género");
+		lblIndiGene.setBounds(10, 152, 46, 14);
 		contentPane.add(lblIndiGene);
 		
 		JButton btnModificar = new JButton("Modificar");
