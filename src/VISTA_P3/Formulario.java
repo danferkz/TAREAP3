@@ -232,13 +232,13 @@ public class Formulario extends JFrame {
 		rdbtnGene_F.setBounds(130, 190, 48, 23);
 		contentPane.add(rdbtnGene_F);
 		
-<<<<<<< HEAD
+
 		JLabel lblIndiGene = new JLabel("Género");
 		lblIndiGene.setBounds(10, 152, 46, 14);
-=======
+
 		JLabel lblIndiGene = new JLabel("Genero");
 		lblIndiGene.setBounds(10, 169, 46, 14);
->>>>>>> bd68bbfa47cccf02557560efdd1944de754e2955
+
 		contentPane.add(lblIndiGene);
 		
 		JButton btnModificar = new JButton("Modificar");
