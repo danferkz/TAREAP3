@@ -531,7 +531,7 @@ public class Formulario extends JFrame {
 	    }
 	    table.setModel(model);
 	}
-	void clear() {
+	void clear() {//s
 		txtCodigo.setText("");
 		txtNombre.setText("");
 		cmbTipo.setSelectedIndex(0);
@@ -637,32 +637,36 @@ public class Formulario extends JFrame {
 		}
 	
 	
-	void saveguarda(){
-		JFileChooser f1 = new JFileChooser(".")
-		{
-			private static final long serialVersionUID = 1L;
-            public void approveSelection(){
-                File f = getSelectedFile();
-                if(f.exists() && getDialogType() == SAVE_DIALOG){
-                    int result = JOptionPane.showConfirmDialog(this,"El archivo existe, desea sobreescribir?","Verificar archivo",JOptionPane.YES_NO_CANCEL_OPTION);
-                    switch(result){
-                        case JOptionPane.YES_OPTION:
-                            super.approveSelection();
-                            return;
-                        case JOptionPane.NO_OPTION:
-                            return;
-                        case JOptionPane.CLOSED_OPTION:
-                            return;
-                        case JOptionPane.CANCEL_OPTION:
-                            cancelSelection();
-                            return;
-                    }
-                }
-                super.approveSelection();
-            }        
-        };
+	void saveguarda() {
+	    JFileChooser f1 = new JFileChooser(".") {
+	        private static final long serialVersionUID = 1L;
+
+	        public void approveSelection() {
+	            File f = getSelectedFile();
+	            if (f.exists() && getDialogType() == SAVE_DIALOG) {
+	                int result = JOptionPane.showConfirmDialog(this, "El archivo existe, desea sobreescribir?", "Verificar archivo", JOptionPane.YES_NO_CANCEL_OPTION);
+	                switch (result) {
+	                    case JOptionPane.YES_OPTION:
+	                        super.approveSelection();
+	                        return;
+	                    case JOptionPane.NO_OPTION:
+	                        return;
+	                    case JOptionPane.CLOSED_OPTION:
+	                        return;
+	                    case JOptionPane.CANCEL_OPTION:
+	                        cancelSelection();
+	                        return;
+	                }
+	            }
+	            super.approveSelection();
+	        }
+	    };
 		
+<<<<<<< HEAD
         FileFilter filtrox = new FileNameExtensionFilter("Archivos de texto (.txt, .csv, .doc)", "txt", "csv", "doc");
+=======
+	    FileFilter filtrox = new FileNameExtensionFilter("Archivos de texto (.txt, .csv, .doc)", "txt", "csv", "doc");
+>>>>>>> 1f0a7b8cf76e2903800d49887f2eb16279e5b88f
 	    f1.setFileFilter(filtrox);
 	    f1.setDialogTitle("Especifique archivo a guardar.");
 	    int selected = f1.showSaveDialog(this);
@@ -684,7 +688,11 @@ public class Formulario extends JFrame {
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
+<<<<<<< HEAD
 	    }
+=======
+	    }
+>>>>>>> 1f0a7b8cf76e2903800d49887f2eb16279e5b88f
 	}
 			
 	
