@@ -12,6 +12,8 @@ public interface Mascota {
     String revisionSexo();
     int getEdad();
     void setEdad(int edad);
+    String listadoHobbies();
+    
 }
 
 
