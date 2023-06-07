@@ -1,3 +1,5 @@
+
+
 package MODELO_P3;
 
 public interface Mascota {
@@ -15,6 +17,3 @@ public interface Mascota {
     String listadoHobbies();
     
 }
-
-
-

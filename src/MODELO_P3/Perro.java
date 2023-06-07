@@ -1,3 +1,4 @@
+
 package MODELO_P3;
 
 public class Perro implements Mascota {
@@ -101,3 +102,4 @@ public class Perro implements Mascota {
 	}
 	
 }
+
