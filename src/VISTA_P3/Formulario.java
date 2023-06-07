@@ -10,6 +10,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+
+
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -26,6 +39,8 @@ import java.awt.event.ActionEvent;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+
 import javax.swing.JRadioButton;
 
 
@@ -43,6 +58,9 @@ import javax.swing.JRadioButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class Formulario extends JFrame {
@@ -164,11 +182,29 @@ public class Formulario extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		txtCodigo = new JTextField();
+		txtCodigo.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char limitation = e.getKeyChar();
+				String pato = txtCodigo.getText();
+				if (!(Character.isDigit(limitation))||pato.length()>=3||(pato.length() == 0 && limitation != '1')){
+				 e.consume();
+				}
+			}
+		});
 		txtCodigo.setBounds(92, 15, 86, 20);
 		contentPane.add(txtCodigo);
 		txtCodigo.setColumns(10);
 		
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char limitation = e.getKeyChar();
+				String pati = txtNombre.getText();
+				if (!(Character.isAlphabetic(limitation))||(pati.length()== 0 && Character.isUpperCase(limitation)==false)) {
+					e.consume();
+				}
+			}
+		});
 		txtNombre.setBounds(92, 52, 86, 20);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
@@ -225,20 +261,31 @@ public class Formulario extends JFrame {
 		contentPane.add(chckbxHiperactivo);
 
 		rdbtnGENE_M = new JRadioButton("M");
+		rdbtnGENE_M.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				while (rdbtnGene_F.isSelected()==true) {
+					rdbtnGene_F.setSelected(false);
+				}
+			}
+		});
 		rdbtnGENE_M.setBounds(55, 190, 55, 23);
 		contentPane.add(rdbtnGENE_M);
 		
 		rdbtnGene_F = new JRadioButton("F");
+		rdbtnGene_F.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				while  (rdbtnGENE_M.isSelected()==true) {
+					rdbtnGENE_M.setSelected(false);
+				}
+			}
+		});
 		rdbtnGene_F.setBounds(130, 190, 48, 23);
 		contentPane.add(rdbtnGene_F);
 		
-
-		JLabel lblIndiGene = new JLabel("Género");
-		lblIndiGene.setBounds(10, 152, 46, 14);
-
 		JLabel lblIndiGene = new JLabel("Genero");
 		lblIndiGene.setBounds(10, 169, 46, 14);
-
 		contentPane.add(lblIndiGene);
 		
 		JButton btnModificar = new JButton("Modificar");
@@ -276,7 +323,7 @@ public class Formulario extends JFrame {
 		        promEdades();
 		    }
 		});
-		btnModificar.setBounds(330, 336, 89, 23);
+		btnModificar.setBounds(294, 336, 89, 23);
 		contentPane.add(btnModificar);
 		
 		JLabel lbl_edad_P = new JLabel("Promedio de Edad:");
@@ -330,6 +377,15 @@ public class Formulario extends JFrame {
 		contentPane.add(btnEliminar);
 		
 		txtEdad = new JTextField();
+		txtEdad.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char limitation = e.getKeyChar();
+				String pato = txtEdad.getText();
+				if (!(Character.isDigit(limitation))||pato.length()>=2) {
+					e.consume();
+				}
+			}
+		});
 		txtEdad.setBounds(92, 86, 86, 20);
 		contentPane.add(txtEdad);
 		txtEdad.setColumns(10);
@@ -370,8 +426,46 @@ public class Formulario extends JFrame {
 		        promEdades();
 		    }
 		});
-		btnPurge.setBounds(499, 336, 89, 23);
+		btnPurge.setBounds(419, 336, 89, 23);
 		contentPane.add(btnPurge);
+		
+		JButton btnGuardar = new JButton("GUARDAR");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveguarda();
+			}
+		});
+		btnGuardar.setBounds(294, 190, 89, 23);
+		contentPane.add(btnGuardar);
+		
+		JButton btnCargar = new JButton("CARGAR");
+		btnCargar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lectura();
+			}
+		});
+		btnCargar.setBounds(399, 190, 89, 23);
+		contentPane.add(btnCargar);
+		
+		/*
+		 * JButton btnOrden = new JButton("Ordenar M a Me");
+		 * btnOrden.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { Mascota aux; for (int i=101; i
+		 * <100+lista.size()-1;i++) { for (int j = 101; j<100+lista.size();j++) { if
+		 * (lista.get(j+1).getCodigo()<lista.get(j).getCodigo()) { aux = lista.get(j+1);
+		 * lista.put(j+1, lista.get(j)); lista.put(j, aux); } } } cargar(); } });
+		 * btnOrden.setBounds(518, 336, 120, 23); contentPane.add(btnOrden);
+		 */
+		
+		/*
+		 * JButton btnOrdenarMeA = new JButton("Ordenar Me a M");
+		 * btnOrdenarMeA.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { Mascota aux; for (int i=101; i
+		 * <100+lista.size()-1;i++) { for (int j = 101; j<100+lista.size()-1;j++) { if
+		 * (lista.get(j+1).getCodigo()<lista.get(j).getCodigo()) { aux = lista.get(j+1);
+		 * lista.put(j+1, lista.get(j)); lista.put(j, aux); } } } cargar(); } });
+		 * btnOrdenarMeA.setBounds(648, 336, 120, 23); contentPane.add(btnOrdenarMeA);
+		 */
 		
 		lista.put(101, new Perro(101, "Firulais", new boolean[] {true, false}, new boolean[] {true, true, false}, 5));
 		lista.put(102, new Gato(102, "Michelina", new boolean[] {false, true},new boolean[] {false, false, true}, 9));
@@ -526,11 +620,14 @@ public class Formulario extends JFrame {
 	void promEdades() {
 		Enumeration<Mascota> e = lista.elements();
 		int numedad = 0;
-		while (e.hasMoreElements()) {
-			Mascota m1 = e.nextElement();
-			numedad = numedad + m1.getEdad();
+		int prom = 0;
+		if (!(lista.size()==0)) {
+			while (e.hasMoreElements()) {
+				Mascota m1 = e.nextElement();
+				numedad = numedad + m1.getEdad();
+			}
+			prom = numedad / (lista.size());
 		}
-		int prom = numedad / (lista.size());
 		String numGAT = String.valueOf(prom);
 		lblPromEdad.setText(numGAT);
 		}
@@ -538,6 +635,80 @@ public class Formulario extends JFrame {
 	void purge() {
 		lista.clear();
 		}
+	
+	
+	void saveguarda(){
+		JFileChooser f1 = new JFileChooser(".")
+		{
+			private static final long serialVersionUID = 1L;
+            public void approveSelection(){
+                File f = getSelectedFile();
+                if(f.exists() && getDialogType() == SAVE_DIALOG){
+                    int result = JOptionPane.showConfirmDialog(this,"El archivo existe, desea sobreescribir?","Verificar archivo",JOptionPane.YES_NO_CANCEL_OPTION);
+                    switch(result){
+                        case JOptionPane.YES_OPTION:
+                            super.approveSelection();
+                            return;
+                        case JOptionPane.NO_OPTION:
+                            return;
+                        case JOptionPane.CLOSED_OPTION:
+                            return;
+                        case JOptionPane.CANCEL_OPTION:
+                            cancelSelection();
+                            return;
+                    }
+                }
+                super.approveSelection();
+            }        
+        };
+		
+		FileFilter filtrox = new FileNameExtensionFilter("Archivos CSV(.csv)","csv");
+		f1.setFileFilter(filtrox);
+		f1.setDialogTitle("Especifique archivo a guardar.");
+		int selected = f1.showSaveDialog(this);
+		
+		try {
+			if(selected == JFileChooser.APPROVE_OPTION) {
+				File archsaved = f1.getSelectedFile();
+				FileWriter alone = new FileWriter(archsaved.getAbsolutePath());
+				BufferedWriter diff = new BufferedWriter(alone);
+				Enumeration<Mascota> e = lista.elements();
+				Mascota ot = e.nextElement();
+				diff.append(ot.getCodigo()+","+ot.getNombre()+","+ot.getTipo()+","+ot.revisionSexo()+","+ot.getEdad()+","+ot.listadoHobbies());				
+				diff.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
 	}
 	
-	
+	void lectura() {
+		JFileChooser fileChooser = new JFileChooser(".");      
+        FileFilter filtro = new FileNameExtensionFilter("Archivos CSV (.csv)", "csv"); 
+        fileChooser.setFileFilter(filtro);
+        int valor = fileChooser.showOpenDialog(fileChooser);
+        if (valor == JFileChooser.APPROVE_OPTION) {
+            String nombreArchivo = fileChooser.getSelectedFile().getAbsolutePath();
+    		Path ruta = Paths.get(nombreArchivo);
+    		try (BufferedReader br = Files.newBufferedReader(ruta, StandardCharsets.US_ASCII)) {
+    			String linea = br.readLine();
+    			String mensaje = "";
+    			while (linea != null) {
+    				String[] campos = linea.split(",");
+    				for(int i = 0;i<campos.length; i++) {
+    					mensaje += campos[i];
+    				}
+    				linea = br.readLine();
+    			}
+    			
+    			JOptionPane.showConfirmDialog(null, mensaje);
+    			
+    		} catch (IOException ioe) {
+    			ioe.printStackTrace();
+    		}
+        } else {
+        	JOptionPane.showMessageDialog(null, "No se ha seleccionado ningún fichero");
+        }	
+	}	
+}

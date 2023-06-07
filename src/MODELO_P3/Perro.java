@@ -1,3 +1,4 @@
+
 package MODELO_P3;
 
 public class Perro implements Mascota {
@@ -80,4 +81,25 @@ public class Perro implements Mascota {
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
+	
+	public String listadoHobbies() {
+		String hobb = "";
+		if (hobbies[0]==true) {
+			hobb += "Comida Selectiva";
+		}
+		if (hobbies[0]==true && hobbies[1]==true) {
+			hobb+=", ";
+		}
+		if (hobbies[1]==true) {
+			hobb += "Paseos familiares";
+		}
+		if (hobbies[1]==true && hobbies[2]==true) {
+			hobb+=", ";
+		}if (hobbies[2]==true) {
+			hobb += "Hiperactivo";
+		}
+		return hobb;
+	}
+	
 }
+

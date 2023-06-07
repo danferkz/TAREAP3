@@ -1,3 +1,5 @@
+
+
 package MODELO_P3;
 
 public interface Mascota {
@@ -12,7 +14,6 @@ public interface Mascota {
     String revisionSexo();
     int getEdad();
     void setEdad(int edad);
+    String listadoHobbies();
+    
 }
-
-
-

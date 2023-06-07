@@ -76,7 +76,7 @@ public class Gato implements Mascota {
 		return texto;
 	}
 
-	@Override
+	
 	public String revisionSexo() {
 		String sexo = "";
 		if (genero[0] == true) {
@@ -86,4 +86,25 @@ public class Gato implements Mascota {
 		}
 		return sexo;
 	}
+
+	
+	public String listadoHobbies() {
+		String hobb = "";
+		if (hobbies[0]==true) {
+			hobb += "Comida Selectiva";
+		}
+		if (hobbies[0]==true && hobbies[1]==true) {
+			hobb+=", ";
+		}
+		if (hobbies[1]==true) {
+			hobb += "Paseos familiares";
+		}
+		if (hobbies[1]==true && hobbies[2]==true) {
+			hobb+=", ";
+		}if (hobbies[2]==true) {
+			hobb += "Hiperactivo";
+		}
+		return hobb;
+	}
 }
+
