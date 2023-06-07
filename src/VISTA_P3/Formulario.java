@@ -662,26 +662,31 @@ public class Formulario extends JFrame {
             }        
         };
 		
-		FileFilter filtrox = new FileNameExtensionFilter("Archivos CSV(.csv)","csv");
-		f1.setFileFilter(filtrox);
-		f1.setDialogTitle("Especifique archivo a guardar.");
-		int selected = f1.showSaveDialog(this);
-		
-		try {
-			if(selected == JFileChooser.APPROVE_OPTION) {
-				File archsaved = f1.getSelectedFile();
-				FileWriter alone = new FileWriter(archsaved.getAbsolutePath());
-				BufferedWriter diff = new BufferedWriter(alone);
-				Enumeration<Mascota> e = lista.elements();
-				Mascota ot = e.nextElement();
-				diff.append(ot.getCodigo()+","+ot.getNombre()+","+ot.getTipo()+","+ot.revisionSexo()+","+ot.getEdad()+","+ot.listadoHobbies());				
-				diff.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-			
+        FileFilter filtrox = new FileNameExtensionFilter("Archivos de texto (.txt, .csv, .doc)", "txt", "csv", "doc");
+	    f1.setFileFilter(filtrox);
+	    f1.setDialogTitle("Especifique archivo a guardar.");
+	    int selected = f1.showSaveDialog(this);
+
+	    try {
+	        if (selected == JFileChooser.APPROVE_OPTION) {
+	            File archsaved = f1.getSelectedFile();
+	            String csvFilePath = archsaved.getAbsolutePath() + ".csv";
+	            FileWriter alone = new FileWriter(csvFilePath);
+	            BufferedWriter diff = new BufferedWriter(alone);
+	            Enumeration<Mascota> e = lista.elements();
+	            while (e.hasMoreElements()) {
+	                Mascota ot = e.nextElement();
+	                String line = ot.getCodigo() + "," + ot.getNombre() + "," + ot.getTipo() + "," + ot.revisionSexo() + "," + ot.getEdad() + "," + ot.listadoHobbies();
+	                diff.write(line);
+	                diff.newLine();
+	            }
+	            diff.close();
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
+			
 	
 	void lectura() {
 		JFileChooser fileChooser = new JFileChooser(".");      
@@ -701,9 +706,7 @@ public class Formulario extends JFrame {
     				}
     				linea = br.readLine();
     			}
-    			
     			JOptionPane.showConfirmDialog(null, mensaje);
-    			
     		} catch (IOException ioe) {
     			ioe.printStackTrace();
     		}
