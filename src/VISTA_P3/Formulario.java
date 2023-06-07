@@ -662,8 +662,12 @@ public class Formulario extends JFrame {
 	        }
 	    };
 		
+<<<<<<< HEAD
 
         FileFilter filtrox = new FileNameExtensionFilter("Archivos de texto (.txt, .csv, .doc)", "txt", "csv", "doc");
+=======
+	    FileFilter filtrox = new FileNameExtensionFilter("Archivos de texto (.txt, .csv, .doc)", "txt", "csv", "doc");
+>>>>>>> 85cc3c2de179b517ac6ae64f3e0dfbc47b5f5223
 	    f1.setFileFilter(filtrox);
 	    f1.setDialogTitle("Especifique archivo a guardar.");
 	    int selected = f1.showSaveDialog(this);
@@ -684,11 +688,17 @@ public class Formulario extends JFrame {
 	            diff.close();
 	        }
 	    } catch (Exception e) {
+<<<<<<< HEAD
 	        e.printStackTrace(); 
 	        
 	    }
 	  }
 			
+=======
+	        e.printStackTrace();
+	    }
+	}
+>>>>>>> 85cc3c2de179b517ac6ae64f3e0dfbc47b5f5223
 	
 	void lectura() {
 		JFileChooser fileChooser = new JFileChooser(".");      
@@ -708,7 +718,9 @@ public class Formulario extends JFrame {
     				}
     				linea = br.readLine();
     			}
+    			
     			JOptionPane.showConfirmDialog(null, mensaje);
+    			
     		} catch (IOException ioe) {
     			ioe.printStackTrace();
     		}
