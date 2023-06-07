@@ -637,50 +637,54 @@ public class Formulario extends JFrame {
 		}
 	
 	
-	void saveguarda(){
-		JFileChooser f1 = new JFileChooser(".")
-		{
-			private static final long serialVersionUID = 1L;
-            public void approveSelection(){
-                File f = getSelectedFile();
-                if(f.exists() && getDialogType() == SAVE_DIALOG){
-                    int result = JOptionPane.showConfirmDialog(this,"El archivo existe, desea sobreescribir?","Verificar archivo",JOptionPane.YES_NO_CANCEL_OPTION);
-                    switch(result){
-                        case JOptionPane.YES_OPTION:
-                            super.approveSelection();
-                            return;
-                        case JOptionPane.NO_OPTION:
-                            return;
-                        case JOptionPane.CLOSED_OPTION:
-                            return;
-                        case JOptionPane.CANCEL_OPTION:
-                            cancelSelection();
-                            return;
-                    }
-                }
-                super.approveSelection();
-            }        
-        };
+	void saveguarda() {
+	    JFileChooser f1 = new JFileChooser(".") {
+	        private static final long serialVersionUID = 1L;
+
+	        public void approveSelection() {
+	            File f = getSelectedFile();
+	            if (f.exists() && getDialogType() == SAVE_DIALOG) {
+	                int result = JOptionPane.showConfirmDialog(this, "El archivo existe, desea sobreescribir?", "Verificar archivo", JOptionPane.YES_NO_CANCEL_OPTION);
+	                switch (result) {
+	                    case JOptionPane.YES_OPTION:
+	                        super.approveSelection();
+	                        return;
+	                    case JOptionPane.NO_OPTION:
+	                        return;
+	                    case JOptionPane.CLOSED_OPTION:
+	                        return;
+	                    case JOptionPane.CANCEL_OPTION:
+	                        cancelSelection();
+	                        return;
+	                }
+	            }
+	            super.approveSelection();
+	        }
+	    };
 		
-		FileFilter filtrox = new FileNameExtensionFilter("Archivos CSV(.csv)","csv");
-		f1.setFileFilter(filtrox);
-		f1.setDialogTitle("Especifique archivo a guardar.");
-		int selected = f1.showSaveDialog(this);
-		
-		try {
-			if(selected == JFileChooser.APPROVE_OPTION) {
-				File archsaved = f1.getSelectedFile();
-				FileWriter alone = new FileWriter(archsaved.getAbsolutePath());
-				BufferedWriter diff = new BufferedWriter(alone);
-				Enumeration<Mascota> e = lista.elements();
-				Mascota ot = e.nextElement();
-				diff.append(ot.getCodigo()+","+ot.getNombre()+","+ot.getTipo()+","+ot.revisionSexo()+","+ot.getEdad()+","+ot.listadoHobbies());				
-				diff.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-			
+	    FileFilter filtrox = new FileNameExtensionFilter("Archivos de texto (.txt, .csv, .doc)", "txt", "csv", "doc");
+	    f1.setFileFilter(filtrox);
+	    f1.setDialogTitle("Especifique archivo a guardar.");
+	    int selected = f1.showSaveDialog(this);
+
+	    try {
+	        if (selected == JFileChooser.APPROVE_OPTION) {
+	            File archsaved = f1.getSelectedFile();
+	            String csvFilePath = archsaved.getAbsolutePath() + ".csv";
+	            FileWriter alone = new FileWriter(csvFilePath);
+	            BufferedWriter diff = new BufferedWriter(alone);
+	            Enumeration<Mascota> e = lista.elements();
+	            while (e.hasMoreElements()) {
+	                Mascota ot = e.nextElement();
+	                String line = ot.getCodigo() + "," + ot.getNombre() + "," + ot.getTipo() + "," + ot.revisionSexo() + "," + ot.getEdad() + "," + ot.listadoHobbies();
+	                diff.write(line);
+	                diff.newLine();
+	            }
+	            diff.close();
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 	void lectura() {
