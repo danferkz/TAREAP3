@@ -437,7 +437,7 @@ public class Formulario extends JFrame {
 	    }
 	    table.setModel(model);
 	}
-	void clear() {
+	void clear() {//s
 		txtCodigo.setText("");
 		txtNombre.setText("");
 		cmbTipo.setSelectedIndex(0);
